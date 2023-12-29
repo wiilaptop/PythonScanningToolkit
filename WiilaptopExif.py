@@ -1,6 +1,6 @@
 import exif
 """
-Jayden Bou-Quraiss
+Created by Wiilaptop
 EXIF Class
 
 Objective: Processes changes done through the Exif package in the main program. 
