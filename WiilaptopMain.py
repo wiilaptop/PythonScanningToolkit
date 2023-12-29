@@ -8,6 +8,7 @@ from WiilaptopNetInterfaces import NetInfoClass
 from WiilaptopHTMLScraping import HTMLScrape
 from WiilaptopPortScanner import PortScanner
 from WiilaptopExif import *
+from WiilaptopMutagenClass import MutagenClass
 import time
 
 def main():
@@ -341,7 +342,7 @@ def MetaDataImage():
             else:
                 print (f"Please use Y/y/N/n.") #Catches invalid inputs.
 
-def MetaDataSound(): #NOT DONE
+def MetaDataSound():
     try:
         import mutagen
     except ModuleNotFoundError:
