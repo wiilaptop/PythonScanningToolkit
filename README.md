@@ -18,4 +18,12 @@ Here are the current and future planned abilities of PST:
 7. (In-Development) Scan log files for specific phrases.
 8. (In-Development) Create and determine genuine .onion webpages (Mostly as a proof-of-concept. Onion links are extremely few & far between, and some may contain illegal content. Continue this at your own risk.)
 
+In order for FULL functionality as the script currently stands, some Python libraries are to be installed...
+1. Mutagen (Official docs: https://mutagen.readthedocs.io/en/latest/)
+2. EXIF (Official docs: https://exif.readthedocs.io/en/latest/usage.html)
+3. Requests (Official docs: https://requests.readthedocs.io/en/latest/)
+4. bs4 (Official docs: https://www.crummy.com/software/BeautifulSoup/bs4/doc/)
+
+Many of these can be simply installed with pip :)
+
 This script is something that I ultimately want to fine-tune and show as a demonstration of my skills. I love Python and how adaptable it is, and I cannot wait to see what the future holds!
