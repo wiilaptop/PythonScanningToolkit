@@ -4,21 +4,20 @@ A small based Python program made during university in my sophomore year. Still 
 I have always had a fondness for command-line based applications, and wanted to put my skills to the test creating a Python script that not only grasped
 my passion for development, but also had real-world functional cybersecurity use.
 
-This Python script, to help me get a grasp on how to import and use classes, is split up among multiple .py files. In the future, the script will adapt to the functionality of the currently
-installed .py files, but for now - download all of the files to ensure nothing blows up :)
+This Python script, to help me get a grasp on how to import and use classes, is split up among multiple .py files, deemed "modules". As of Feb. 2024, PST will now determine what moduels are currently installed and enable further functionality based on that!
 
 Here are the current and future planned abilities of PST:
 
-1. Scrape HTTP Webpages running on Port 80 (This was the original function of the program for uni.)
-2. Scrape HTTPS Webpages for mailto: links & any URLS in the HTML code.
-3. View the current machine's network interfaces.
-4. Scan for ports on a specified network (and give a description of said port using the included .csv file. This can be considered active recon, use at your own risk.)
-5. Change the metadata of Image files.
-6. Change the metadata of Sound files.
-7. (In-Development) Scan log files for specific phrases.
-8. (In-Development) Create and determine genuine .onion webpages (Mostly as a proof-of-concept. Onion links are extremely few & far between, and some may contain illegal content. Continue this at your own risk.)
+1. Scrape HTTPS Webpages for mailto: links & any URLS in the HTML code.
+2. View the current machine's network interfaces.
+3. Scan for ports on a specified network (and give a description of said port using the included .csv file. This can be considered active recon, use at your own risk.)
+4. Change the metadata of Image files.
+5. (In-Development - Functionally works, but still needs polish.) Change the metadata of Sound files.
+6. (In-Development) Scan log files for specific phrases.
+7. (In-Development) Create and determine genuine .onion webpages (Mostly as a proof-of-concept. Onion links are extremely few & far between, and some may contain illegal content. Continue this at your own risk.)
 
-In order for FULL functionality as the script currently stands, some Python libraries are to be installed...
+In order for FULL functionality as the script currently stands, some Python libraries are to be installed.
+PST will tell you of these requirements when the program is ran. Once module is required 
 1. Mutagen (Official docs: https://mutagen.readthedocs.io/en/latest/)
 2. EXIF (Official docs: https://exif.readthedocs.io/en/latest/usage.html)
 3. Requests (Official docs: https://requests.readthedocs.io/en/latest/)
