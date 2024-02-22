@@ -1,10 +1,7 @@
-"""
-Created by Wiilaptop
-Network Interface Class
+# Created with love from Texas by Wiilaptop
+import netifaces
 
-Purpose: Allow for the Main command to pass arguements to the netifaces module.
-"""
-
+#This is the Netifaces module for use in the Python Scanning Toolkit.
 
 Information = []
 class NetInfoClass():
@@ -12,10 +9,6 @@ class NetInfoClass():
         pass
 
     def GetInterfaces(self):
-        try:
-            import netifaces
-        except ModuleNotFoundError:
-            return 1
         try:
             MyInterfaces = netifaces.interfaces()
         except:
