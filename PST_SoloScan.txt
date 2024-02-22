@@ -1,4 +1,0 @@
-[+ PORT FOUND] Port 80 was open on 136.50.11.232!
-[+ PORT FOUND] Port 5000 was open on 136.50.11.232!
-[+ PORT FOUND] Port 8080 was open on 136.50.11.232!
-[+ PORT FOUND] Port 8081 was open on 136.50.11.232!
