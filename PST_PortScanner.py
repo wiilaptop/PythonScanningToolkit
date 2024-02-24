@@ -12,7 +12,7 @@ class PortScanner():
         self.TO = TO
 
     #Here, the socket module is used to attempt to connect to the current port in
-    #iteration, returning a 0 to the main program if a connection is unsuccessful.
+    #iteration, returning a 1 to the main program if a connection is unsuccessful.
     def Scanner(self, PN, IP, TO):
         mysock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         mysock.settimeout(TO)
