@@ -16,8 +16,8 @@ Here are the current and future planned abilities of PST:
 6. (In-Development) Scan log files for specific phrases.
 7. (In-Development) Create and determine genuine .onion webpages (Mostly as a proof-of-concept. Onion links are extremely few & far between, and some may contain illegal content. Continue this at your own risk.)
 
-In order for FULL functionality as the script currently stands, some Python libraries are to be installed.
-PST will tell you of these requirements when the program is ran. Once module is required 
+Many of these packages are required to run some of the modules of PST. 
+PST will tell you of these requirements when the program is ran.
 1. Mutagen (Official docs: https://mutagen.readthedocs.io/en/latest/)
 2. EXIF (Official docs: https://exif.readthedocs.io/en/latest/usage.html)
 3. Requests (Official docs: https://requests.readthedocs.io/en/latest/)
