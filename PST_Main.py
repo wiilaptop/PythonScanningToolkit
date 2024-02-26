@@ -115,9 +115,21 @@ def ReadUserFile(condition):
     return FileContents
 
 #The function used to write files to the user's machine.
-def WriteUserFile(FileContents, TypeOfScan):
+def WriteUserFile(FileContents, TypeOfScan, condition):
+
     #Declaring the OutputFile as PST with the name of the scan preformed.
     OutputFile = open(f"PST_{TypeOfScan}.txt", "w")
+
+    #Slightly different conditions for if the file is written using mutagen.
+    #Since Mutagen cannot iterate across its audio tags as if it were in a list,
+    #we simply output its output to the file itself.
+    if condition == "Mutagen":
+        OutputFile.write(f"General Attributes:\n{FileContents[0]}")
+        OutputFile.write(f"\nAudio Tags: \n{FileContents[1]}")
+        OutputFile.close()
+        print (f"Written Mutagen file successfully!")
+        return
+
     for i in FileContents:
         OutputFile.write(f"{i}\n")
     OutputFile.close()
@@ -371,6 +383,7 @@ def MetaDataImage():
         import mutagen
         print (f"[*] This feature, at this time, permanently changes info of a sound file. Do create backups!")
 
+        #While Loop keeping the user in bounds when they are asked to import the audio file into PST
         while True:
             try:
                 soundFile = input(f"Enter the name of the sound file to use (Including File Extension): ")
@@ -379,17 +392,70 @@ def MetaDataImage():
                 break
             except:
                 print (f"{soundFile} wasn't found. Maybe it was misspelled or in a different directory?")
+        
+        #Here we will print the general attributes of the file, such as the format and length.
+        #We will also print the available tags to change.
         try:
-            print (f"Here are the general attributes: {audio.info.pprint()}")
+            print (f"\nHere are the general attributes:\n{audio.info.pprint()}")
+            print (f"\nHere are all available audio tags:\n{audio.tags.pprint()}\n")
         except:
             print (f"This file may actually have no available metadata to change. Try a different file.")
         
+        #Using the menu template to give the user the option to export or change the EXIF data.
         MutagenMenu = MenuTemplate(["Export EXIF data", "Change EXIF data", "Exit to Main Menu"])
 
+        #If the user were to choose to export the EXIF data, the tags and info are stored into two audio variables,
+        #Then thrown into the WriteUserFile function along with additional attributes for identification.
         if MutagenMenu == "Export EXIF data":
-            pass
+            audio1 = audio.info.pprint()
+            audio2 = audio.tags.pprint()
+            WriteUserFile((audio1, audio2), f"{soundFile}_metadata", "Mutagen")
+        
+        #If the user chooses to change EXIF data, this statement is ran.
         if MutagenMenu == "Change EXIF data":
-            pass
+
+            while True:
+
+                #Printing all available tags to change
+                print (f"\nHere are the available tags to change: ")
+                for i in audio.tags:
+                    print (f"{i}")
+
+                #Asking the user what attribute they would like to change
+                UserEdit = input(f"\nWhat attribute would you like to edit? (Type DONE to save, or EXIT to quit without saving): ")
+                if UserEdit in audio.tags:
+                    UserChange = input(f"Change {UserEdit} to what?: ")
+
+                    #Changing the tag to what the user inputted.
+                    #A try-except is used here, as audio files can be very picky with their metadata.
+                    #If a TypeError is raised as an exception regarding keys, the user is alerted here.
+                    try:
+                        audio.tags[UserEdit] = UserChange
+                    except TypeError as e:
+                        print (f"There was an error trying to change that tag. Perhaps try a different tag?")
+                        continue
+                    
+                    #Telling the user what the new audio tags are now.
+                    #This is still stored in memory ONLY, and not saved until the user types EXIT.
+                    print (f"\nThe tags of {soundFile} are now: ")
+                    print (audio.tags.pprint())
+                    continue
+
+                #Using the .save() mutagen function to save the audio file back to the desktop.
+                if UserEdit == "DONE" or UserEdit == "done":
+                    print (f"Your changes to {soundFile} have been saved!")
+                    audio.save()
+                    return
+                
+                #Using the Python return function to return the user back to the Main Menu function.
+                if UserEdit == "EXIT" or UserEdit == "exit":
+                    print (f"[*] Returning to Main Menu. Your changes will not be saved.")
+                    return
+
+                #Else statement to catch invalid inputs.
+                else:
+                    print (f"Hmm. That's not an available attribute.")
+
         if MutagenMenu == "Exit to Main Menu":
             return
 
