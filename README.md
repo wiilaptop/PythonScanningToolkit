@@ -12,7 +12,7 @@ Here are the current and future planned abilities of PST:
 2. View the current machine's network interfaces.
 3. Scan for ports on a specified network (and give a description of said port using the included .csv file. This can be considered active recon, use at your own risk.)
 4. Change the metadata of Image files.
-5. (In-Development - Functionally works, but still needs polish.) Change the metadata of Sound files.
+5. Change the metadata of Sound files.
 6. (In-Development) Scan log files for specific phrases.
 7. (In-Development) Create and determine genuine .onion webpages (Mostly as a proof-of-concept. Onion links are extremely few & far between, and some may contain illegal content. Continue this at your own risk.)
 
