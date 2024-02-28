@@ -25,4 +25,6 @@ PST will tell you of these requirements when the program is ran.
 
 Many of these can be simply installed with pip :)
 
+If you have any suggestions, feedback, or ideas about additional modules, do not hesitate to let me know! If you think of something amazing, totally make a fork of this repo and show me!
+
 This script is something that I ultimately want to fine-tune and show as a demonstration of my skills. I love Python and how adaptable it is, and I cannot wait to see what the future holds!
