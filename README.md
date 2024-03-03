@@ -13,7 +13,7 @@ Here are the current and future planned abilities of PST:
 3. Scan for ports on a specified network (and give a description of said port using the included .csv file. This can be considered active recon, use at your own risk.)
 4. Change the metadata of Image files.
 5. Change the metadata of Sound files.
-6. (In-Development) Scan log files for specific phrases.
+6. Scan log files for specific phrases.
 7. (In-Development) Create and determine genuine .onion webpages (Mostly as a proof-of-concept. Onion links are extremely few & far between, and some may contain illegal content. Continue this at your own risk.)
 
 Many of these packages are required to run some of the modules of PST. 
@@ -23,8 +23,11 @@ PST will tell you of these requirements when the program is ran.
 3. Requests (Official docs: https://requests.readthedocs.io/en/latest/)
 4. bs4 (Official docs: https://www.crummy.com/software/BeautifulSoup/bs4/doc/)
 
-Many of these can be simply installed with pip :)
+Many of these can be simply installed with pip.
+
+NOTE: Remember to use this tool in good faith. Only scan networks and websites that you trust and have permission to!
 
 If you have any suggestions, feedback, or ideas about additional modules, do not hesitate to let me know! If you think of something amazing, totally make a fork of this repo and show me!
+I would love to one day build this program with community-made modules (and of course ALL credit will be given!) that make PST one of the greatest tools out there! :)
 
 This script is something that I ultimately want to fine-tune and show as a demonstration of my skills. I love Python and how adaptable it is, and I cannot wait to see what the future holds!
