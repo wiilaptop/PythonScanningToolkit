@@ -47,6 +47,13 @@ def main():
         AccessableItems.append("View & Change Metadata")
     except ModuleNotFoundError:
         print (f"[!] One or more dependencies were not found for changing metadata. (PST_Image.py, exif, mutagen)")
+
+    try:
+        from PST_LogFileScanning import LogFileClass
+        print (f"[✓] The PST Log File Scanner module was loaded successfully.")
+        AccessableItems.append("Read & Analyze Log files")
+    except ModuleNotFoundError:
+        print (f"[!] One or more dependencies were not found for scanning log files. (PST_LogFileScanning.py)")
         
     #Closing PST if there are no modules detected.
     if len(AccessableItems) == 0: print(f"\n[!] No modules were detected. PST requires at least one module."); exit()
@@ -55,6 +62,8 @@ def main():
     AccessableItems.append("Quit")
 
     #Calling the Main Menu and throwing AccessableItems into it based on detected modules.
+    print (f"\n[*] If you have ANY ideas on what to add to PST... let me know on GitHub!")
+    print (f"[*] Python Scanning Toolkit is a program meant for the community, and I would love to see it grow!")
     MainMenu(AccessableItems)
 
 #The Main Menu that is in a "while" loop to keep the user within bounds.
@@ -71,6 +80,8 @@ def MainMenu(AccessableItems):
             print (f"Selected Option: {TopLevelChoice}"); PortScannerRun()
         if TopLevelChoice == "View & Change Metadata":
             print (f"Selected Option: {TopLevelChoice}"); MetaDataImage()
+        if TopLevelChoice == "Read & Analyze Log files":
+            print (f"Selected Option: {TopLevelChoice}"); LogFileScanning()
         if TopLevelChoice == "Quit":
             print (f"\n[*] Quitting Python Scanning Toolkit..."); exit()
 
@@ -129,7 +140,26 @@ def WriteUserFile(FileContents, TypeOfScan, condition):
         OutputFile.close()
         print (f"Written Mutagen file successfully!")
         return
+    
+    #Slightly different conditions for if the file is written after scanning a log file.
+    #The outputs of the log scan are thrown into a tuple, then iterated here.
+    #All within FileContents, the two lists are in [0] (All words), [1] (Any Words), and [2]
+    #for the list of words that were scanned.
+    if condition == "LogScan":
+        OutputFile.write (f"The words being searched are: ") 
+        for i in FileContents[2]:
+            OutputFile.write(i + " | ")
+        OutputFile.write (f"\nThe lines in which ALL words were found are: \n")
+        for i in FileContents[0]: 
+            OutputFile.write(f"{i}")
+        OutputFile.write (f"\nThe lines in which ANY words were found are: \n")
+        for i in FileContents[1]: 
+            OutputFile.write(f"{i}") 
+        OutputFile.close()
+        print (f"Written LogFile results successfully!")
+        return
 
+    #The default writing to file code. Simply writes every line of the list to a file.
     for i in FileContents:
         OutputFile.write(f"{i}\n")
     OutputFile.close()
@@ -150,7 +180,7 @@ def HTMLScraping():
         page = input(f"Enter the webpage to browse: ")
         WebsiteList.append(page)
     if AmountOfWebsites == "Multiple Websites":
-        WebsiteList = ReadUserFile()
+        WebsiteList = ReadUserFile(0)
     if AmountOfWebsites == "Return to Main Menu":
         return
 
@@ -201,11 +231,16 @@ def HTMLScraping():
             
     #If the user chose to write to a file, throw all the output into a list.
     if WriteToFile == "Write To File":
-        FileContents.append(f"{page}: {item}")
+        try:
+            FileContents.append(f"{page}: {item}")
+        except UnboundLocalError:
+            #If the user has an empty list and attempts to write it to a file, handle exception here.
+            print (f"[!] There was no infrormation to write to the file.")
+            return
 
     #If the user wanted a file, this calls the write file function.
     if WriteToFile == "Write To File":
-        WriteUserFile(FileContents, TypeOfScan)
+        WriteUserFile(FileContents, TypeOfScan, 0)
 
 #Function for viewing the Network Interfacts on the current machine.
 def NetworkInterfaces():
@@ -257,7 +292,7 @@ def PortScannerRun():
     if typeOfPortScan == "Scan Ports from .csv File":
         TypeOfScan = "FileScan"
         SoloScan = False
-        PortFile = ReadUserFile()
+        PortFile = ReadUserFile(0)
         PNDictionary = {}
 
         #This is the for loop that will grab every line in the .csv file, strip it and split it based on comma.
@@ -284,6 +319,7 @@ def PortScannerRun():
         except ValueError:
             print (f"Hmm. That didn't seem right. Please enter a float or integer!")
     
+    #Importing the class into the function itself so it can be called easier.
     from PST_PortScanner import PortScanner
 
     #Asking the user the range of ports to scan, with beginning port and ending port.
@@ -518,7 +554,74 @@ def MetaDataImage():
     #Returns to the Main Menu.
     if SaveExifData == "Quit":
         return
+
+#Function for viewing and analyzing Log files.
+def LogFileScanning():
+
+    #Reading the logfile through the ReadUserFile() function with
+    #a condition of "0" since it will be a default read.
+    LogFile = ReadUserFile(0)
+
+    #Clarifying to the user how many lines were read.
+    print (f"Number of lines read: {len(LogFile)}")
+
+    #Asking the user what words they would like to search for in the file.
+    UserWordsToSearch = input(f"Enter the words that you would like to find (Seperated by ,): ")
+
+    #Initalizing the Word List, splitting each word that was seperated by a comma.
+    SearchList = []
+    SearchList = UserWordsToSearch.split(",")
+
+    #Telling the user how many words were successfully read.
+    print (f"We are searching for {len(SearchList)} word(s).")
+
+    #Importing the module within the function for easy calling.
+    from PST_LogFileScanning import LogFileClass
     
+    #Initalizing the all word and any word lists where the lines of the log file will be stored.
+    allWordsFoundLines = []
+    anyWordsFoundLines = []
+
+    #Initalizing an index to determine what line the words were found on.
+    lineNum = 0
+
+    #For loop that runs a single iteration through the entire file and does a double check if any or all words were found in it.
+    for line in LogFile:
+
+        #Running the PST module to determine if all words or a single word were found in the file.
+        lineNum += 1
+        anyWordScan = LogFileClass(line, SearchList)
+        anyResult = anyWordScan.anyWordScan(line,SearchList)
+        
+        if anyResult == True:
+            anyWordsFoundLines.append(": ".join([str(lineNum),line])) #Joining the line number to the line itself and throwing it into the any word in line list.
+
+        allWordScan = LogFileClass(line, SearchList)
+        allResult = allWordScan.allWordScan(line, SearchList)
+
+        if allResult == True:
+            allWordsFoundLines.append(": ".join([str(lineNum),line])) #Joining the line number to the line itself and throwing it into the all word in line list.
+
+    #Conditional if statements for if no lines were found with any / all words.
+    if len(allWordsFoundLines) == 0:
+        allWordsFoundLines.append(f"[!] No lines were found with all words.")
+    
+    if len(anyWordsFoundLines) == 0:
+        anyWordsFoundLines.append("[!] No lines were found with any of the words.")
+
+    print (f"\nThe lines in which ALL Words were found are: ") #Printing the results of all the words that were found
+    for i in allWordsFoundLines:
+        print (i)
+    print (f"\nThe lines in which ANY words were found are: ") #Printing the results of any words found
+    for i in anyWordsFoundLines:
+        print (i)
+
+    #Asking the user if they want to write to a file.
+    #Since WriteUserFile takes one input for (FileContents), we throw it into a 3 variable tuple and digest it at the WriteUserFile function.
+    writeToFile = input(f"Do you want to write the results of the scan to a file? (Y/n):")
+    if writeToFile == "Y":
+        WriteUserFile((allWordsFoundLines,anyWordsFoundLines,SearchList), "LogScan", "LogScan")
+
 #Calling Main for first boot.
 if __name__ == "__main__":
     main()

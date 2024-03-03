@@ -44,13 +44,3 @@ class HTMLScrape():
             if "mailto:" in aline['href']:
                 emails.append(aline.text)
         return (emails)
-
-    # def HTMLemail(self, page, TO):
-    #     response = requests.get(page)
-
-    #     if response.status_code == 200:
-    #         text = response.text
-    #         soup = str(BeautifulSoup(text,"html.parser").body)
-    #         emails = re.findall(r'[\w.+-]+@[\w-]+\.[\w.-]+',soup)
-    #         emails_set = set(emails)
-    #         return (emails_set)

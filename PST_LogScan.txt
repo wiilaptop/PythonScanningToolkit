@@ -1,0 +1,5 @@
+The words being searched are: JSON | one | 
+The lines in which ALL words were found are: 
+10: www.one.com 10.10.13.144 1354280801 JSON 65
+The lines in which ANY words were found are: 
+2: www.one.com 10.14.101.11 1353280801 TEST 3434: www.one.com 10.15.11.61 1353280801 TEST 3657: www.one.com 10.20.14.41 1353290801 REST 6510: www.one.com 10.10.13.144 1354280801 JSON 6511: www.two.com 10.50.11.141 1354280801 JSON 66512: www.three.com 120.10.11.11 1354280801 JSON 55514: www.one.com 10.103.141.141 1383280801 RAW 315
