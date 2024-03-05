@@ -4,7 +4,7 @@ A small based Python program made during university in my sophomore year. Still 
 I have always had a fondness for command-line based applications, and wanted to put my skills to the test creating a Python script that not only grasped
 my passion for development, but also had real-world functional cybersecurity use.
 
-This Python script, to help me get a grasp on how to import and use classes, is split up among multiple .py files, deemed "modules". As of Feb. 2024, PST will now determine what moduels are currently installed and enable further functionality based on that!
+This Python script, to help me get a grasp on how to import and use classes, is split up among multiple .py files, deemed "modules". As of Feb. 2024, PST will now determine what modules are currently installed and enable further functionality based on that!
 
 Here are the current and future planned abilities of PST:
 
