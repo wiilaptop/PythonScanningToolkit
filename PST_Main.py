@@ -14,6 +14,7 @@ def main():
 
     #At minimum, one module is required for PST to function.
 
+    #Attempting to Import the HTML Scraping Module. If it is detected, add it to the list. If not, tell the user what happened.
     try:
         from PST_HTML import HTMLScrape
         from bs4 import BeautifulSoup
@@ -22,7 +23,8 @@ def main():
         AccessableItems.append("HTML Scraping")
     except ModuleNotFoundError:
         print (f"[!] One or more dependencies were not found for HTML Scraping. (PST_HTML.py, bs4, and requests.)")
-        
+
+    #Attempting to Import the Netifaces Module. If it is detected, add it to the list. If not, tell the user what happened.
     try:
         from PST_Netifaces import NetInfoClass
         import netifaces
@@ -30,7 +32,8 @@ def main():
         AccessableItems.append("View Network Interfaces")
     except ImportError:
         print (f"[!] One or more dependencies were not found for viewing network interfaces. (PST_Netifaces.py, netifaces)")
-    
+
+    #Attempting to Import the PortScanner Module. If it is detected, add it to the list. If not, tell the user what happened.
     try:
         from PST_PortScanner import PortScanner
         import socket
@@ -38,7 +41,8 @@ def main():
         AccessableItems.append("Port Scanning")
     except ImportError:
         print ("[!] One or more dependencies were not found for port scanning. (PST_PortScanner.py, socket)")
-    
+
+    #Attempting to Import the Metadata Module. If it is detected, add it to the list. If not, tell the user what happened.
     try:
         from PST_Image import MetadataImage
         from exif import Image
@@ -48,6 +52,7 @@ def main():
     except ModuleNotFoundError:
         print (f"[!] One or more dependencies were not found for changing metadata. (PST_Image.py, exif, mutagen)")
 
+    #Attempting to Import the LogFile Scanning Module. If it is detected, add it to the list. If not, tell the user what happened.
     try:
         from PST_LogFileScanning import LogFileClass
         print (f"[✓] The PST Log File Scanner module was loaded successfully.")
