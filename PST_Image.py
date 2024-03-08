@@ -9,14 +9,8 @@ class MetadataImage():
         self.Image = WorkingImage
 
     def ViewParamaters(self, WorkingImage):
-        commonMems = set(list(dir(WorkingImage))) #puts every attribute into a list and sorts them
+
+        #Puts every attribute into a list and sorts them.
+        commonMems = set(list(dir(WorkingImage)))
         commonMemsSorted= sorted(commonMems)
         return commonMemsSorted
-
-class ExifGet():
-    def __init__(self, WE, UE):
-        self.WE = WE
-        self.UE = UE
-    
-    def getattribute(self, WE, UE):
-        pass

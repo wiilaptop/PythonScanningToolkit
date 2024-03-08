@@ -10,10 +10,14 @@ class NetInfoClass():
 
     def GetInterfaces(self):
         try:
+            #Attempt to simply print all information using the netifaces module
             MyInterfaces = netifaces.interfaces()
         except:
+            #Due to the variety of network types, exception handling here for if an error occurs. 
             return 0
         for Interface in MyInterfaces:
+
+            #Appending found information about the IP addresses and sending them back to the main program.
             ipaddresses = netifaces.ifaddresses(Interface)
             if netifaces.AF_INET in ipaddresses:
                 ipaddress_desc = ipaddresses[netifaces.AF_INET]

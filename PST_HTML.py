@@ -24,6 +24,9 @@ class HTMLScrape():
         except requests.exceptions.ConnectionError:
             return 1
         html_content = response.text
+
+        #Using BeautifulSoup's html.parser ability to quickly search for a specific character
+        #within the HTML code.
         soup = BeautifulSoup(html_content, 'html.parser')
         for aline in soup.find_all('a', href=True): 
             if aline.text: 
@@ -39,6 +42,8 @@ class HTMLScrape():
         except requests.exceptions.ConnectionError:
             return 1 #Error if the website does not connect.
         html_content = response.text
+
+        #Similarly to the previous function, but this one looks for "Mmailto:" tags.
         soup = BeautifulSoup(html_content, 'html.parser')
         for aline in soup.find_all('a', href=True): 
             if "mailto:" in aline['href']:
